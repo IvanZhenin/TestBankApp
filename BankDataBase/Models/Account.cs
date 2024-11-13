@@ -1,0 +1,13 @@
+﻿namespace BankDataBase.Models
+{
+	public class Account
+	{
+		public int Id { get; set; }
+		public int BankId { get; set; }
+		public decimal Balance { get; set; }
+		public string AccountName { get; set; } = "";
+		public DateTime CreationDate { get; set; }
+		public Bank Bank { get; set; }
+		public ICollection<Transaction> Transactions { get; set; } = [];
+	}
+}
