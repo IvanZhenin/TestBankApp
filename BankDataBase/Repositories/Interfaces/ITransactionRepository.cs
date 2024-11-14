@@ -4,7 +4,7 @@ namespace BankDataBase.Repositories.Interfaces
 {
 	public interface ITransactionRepository
 	{
-		string CreateNewTransaction(uint senderId, uint recipientId, decimal amount);
-		bool TransactionExists(Guid transactionId);
+		Task<string> CreateNewTransaction(uint senderId, uint recipientId, decimal amount);
+		Task<bool> TransactionExists(Guid transactionId);
 	} 
 }

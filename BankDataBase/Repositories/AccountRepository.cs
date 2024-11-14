@@ -2,6 +2,7 @@
 using BankDataBase.Models;
 using BankDataBase.Repositories.Interfaces;
 using BankDataBase.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankDataBase.Repositories
 {
@@ -13,20 +14,22 @@ namespace BankDataBase.Repositories
 			_context = context;
 		}
 
-		public bool AccountExists(uint accountId)
+		public async Task<bool> AccountExists(uint accountId)
 		{
-			return _context.Accounts.Any(a => a.Id == accountId);
+			var checkAccount = await _context.Accounts.AnyAsync(a => a.Id == accountId);
+			return checkAccount;
 		}
 
-		public string CreateNewAccount(string accountName, uint bankId)
+		public async Task<string> CreateNewAccount(string accountName, uint bankId)
 		{
 			if (String.IsNullOrEmpty(accountName))
 				return "Не удалось создать аккаунт, необходимо указать имя!";
 
-			if (!_context.Banks.Any(b => b.Id == bankId))
+			if (!await _context.Banks.AnyAsync(b => b.Id == bankId))
 				return "Не удалось создать аккаунт, неверно указан номер банка!";
 
-			var accountList = _context.Accounts.OrderBy(a => a.Id).Select(a => a.Id).ToList();
+			var accountList = await _context.Accounts.AsNoTracking()
+				.OrderBy(a => a.Id).Select(a => a.Id).ToListAsync();
 
 			var account = new Account()
 			{
@@ -38,29 +41,33 @@ namespace BankDataBase.Repositories
 			};
 
 			_context.Accounts.Add(account);
-			_context.SaveChanges();
+			await _context.SaveChangesAsync();
 
 			return "Аккаунт успешно создан!";
 		}
 
-		public Account GetAccount(uint accountId)
+		public async Task<Account> GetAccount(uint accountId)
 		{
-			return _context.Accounts.FirstOrDefault(a => a.Id == accountId);
+			var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == accountId);
+			return account;
 		}
 
-		public decimal GetBalance(uint accountId)
+		public async Task<decimal> GetBalance(uint accountId)
 		{
-			return _context.Accounts.FirstOrDefault(a => a.Id == accountId).Balance;
+			var account = await _context.Accounts.AsNoTracking().FirstOrDefaultAsync(a => a.Id == accountId);
+			return account?.Balance ?? 0;
 		}
 
-		public ICollection<Transaction> GetSentTransactions(uint accountId)
+		public async Task<ICollection<Transaction>> GetSentTransactions(uint accountId)
 		{
-			return _context.Transactions.Where(t => t.SenderId == accountId).ToList();
+			var transactionList = await _context.Transactions.AsNoTracking().Where(t => t.SenderId == accountId).ToListAsync();
+			return transactionList;
 		}
 
-		public ICollection<Transaction> GetReceivedTransactions(uint accountId)
+		public async Task<ICollection<Transaction>> GetReceivedTransactions(uint accountId)
 		{
-			return _context.Transactions.Where(t => t.RecipientId == accountId).ToList();
+			var transactionList = await _context.Transactions.AsNoTracking().Where(t => t.RecipientId == accountId).ToListAsync();
+			return transactionList;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using BankDataBase.Data;
 using BankDataBase.Models;
 using BankDataBase.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankDataBase.Repositories
 {
@@ -12,34 +13,40 @@ namespace BankDataBase.Repositories
 			_context = context;
 		}
 
-		public bool BankExists(uint bankId)
+		public async Task<bool> BankExists(uint bankId)
 		{
-			return _context.Banks.Any(b => b.Id == bankId);
+			var checkBank = await _context.Banks.AnyAsync(b => b.Id == bankId);
+			return checkBank;
 		}
 
-		public ICollection<Account> GetAccounts(uint bankId)
+		public async Task<ICollection<Account>> GetAccounts(uint bankId)
 		{
-			return _context.Accounts.Where(a => a.BankId == bankId).ToList();
+			var accountList = await _context.Accounts.AsNoTracking().Where(a => a.BankId == bankId).ToListAsync();
+			return accountList;
 		}
 
-		public ICollection<Account> GetAccounts(string bankName)
+		public async Task<ICollection<Account>> GetAccounts(string bankName)
 		{
-			return _context.Accounts.Where(a => a.Bank.BankName == bankName).ToList();
+			var accountList = await _context.Accounts.AsNoTracking().Where(a => a.Bank.BankName == bankName).ToListAsync();
+			return accountList;
 		}
 
-		public Bank GetBank(uint bankId)
+		public async Task<Bank> GetBank(uint bankId)
 		{
-			return _context.Banks.FirstOrDefault(b => b.Id == bankId);
+			var bank = await _context.Banks.AsNoTracking().FirstOrDefaultAsync(b => b.Id == bankId);
+			return bank;
 		}
 
-		public Bank GetBank(string bankName)
+		public async Task<Bank> GetBank(string bankName)
 		{
-			return _context.Banks.FirstOrDefault(b => b.BankName == bankName);
+			var bank = await _context.Banks.AsNoTracking().FirstOrDefaultAsync(b => b.BankName == bankName);
+			return bank;
 		}
 
-		public ICollection<Bank> GetBanks()
+		public async Task<ICollection<Bank>> GetBanks()
 		{
-			return _context.Banks.ToList();
+			var bankList = await _context.Banks.AsNoTracking().ToListAsync();
+			return bankList;
 		}
 	}
 }

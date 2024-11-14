@@ -1,6 +1,7 @@
 ﻿using BankDataBase.Data;
 using BankDataBase.Models;
 using BankDataBase.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankDataBase.Repositories
 {
@@ -12,7 +13,7 @@ namespace BankDataBase.Repositories
 			_context = context;
 		}
 
-		public string CreateNewTransaction(uint senderId, uint recipientId, decimal amount)
+		public async Task<string> CreateNewTransaction(uint senderId, uint recipientId, decimal amount)
 		{
 			if (senderId == recipientId)
 				return "Ошибка при создании транзакции, вы не можете выбрать свой счет для перевода!";
@@ -20,8 +21,8 @@ namespace BankDataBase.Repositories
 			if (amount <= 0)
 				return "Ошибка при создании транзакции, неверно указана сумма!";
 
-			var sender = _context.Accounts.FirstOrDefault(a => a.Id == senderId);
-			var recipient = _context.Accounts.FirstOrDefault(a => a.Id == recipientId);
+			var sender = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == senderId);
+			var recipient = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == recipientId);
 			
 			if (sender == null || recipient == null)
 				return "Ошибка при создании транзакции, неправильно указаны данные счетов!";
@@ -39,14 +40,15 @@ namespace BankDataBase.Repositories
 			recipient.Balance += amount;
 
 			_context.Transactions.Add(transaction);
-			_context.SaveChanges();
+			await _context.SaveChangesAsync();
 
 			return "Транзакция успешно создана!";
 		}
 
-		public bool TransactionExists(Guid transactionId)
+		public async Task<bool> TransactionExists(Guid transactionId)
 		{
-			return _context.Transactions.Any(t => t.Id == transactionId);
+			var checkTransaction = await _context.Transactions.AnyAsync(t => t.Id == transactionId);
+			return checkTransaction;
 		}
 	}
 }

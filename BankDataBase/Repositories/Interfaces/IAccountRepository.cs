@@ -4,11 +4,11 @@ namespace BankDataBase.Repositories.Interfaces
 {
 	public interface IAccountRepository
 	{
-		Account GetAccount(uint accountId);
-		decimal GetBalance(uint accountId);
-		string CreateNewAccount(string accountName, uint bankId);
-		bool AccountExists(uint accountId);
-		ICollection<Transaction> GetSentTransactions(uint accountId);
-		ICollection<Transaction> GetReceivedTransactions(uint accountId);
+		Task<Account> GetAccount(uint accountId);
+		Task<decimal> GetBalance(uint accountId);
+		Task<string> CreateNewAccount(string accountName, uint bankId);
+		Task<bool> AccountExists(uint accountId);
+		Task<ICollection<Transaction>> GetSentTransactions(uint accountId);
+		Task<ICollection<Transaction>> GetReceivedTransactions(uint accountId);
 	}
 }

@@ -4,11 +4,11 @@ namespace BankDataBase.Repositories.Interfaces
 {
 	public interface IBankRepository
 	{
-		Bank GetBank(uint bankId);
-		Bank GetBank(string bankName);
-		bool BankExists(uint bankId);
-		ICollection<Bank> GetBanks();
-		ICollection<Account> GetAccounts(uint bankId);
-		ICollection<Account> GetAccounts(string bankName);
+		Task<Bank> GetBank(uint bankId);
+		Task<Bank> GetBank(string bankName);
+		Task<bool> BankExists(uint bankId);
+		Task<ICollection<Bank>> GetBanks();
+		Task<ICollection<Account>> GetAccounts(uint bankId);
+		Task<ICollection<Account>> GetAccounts(string bankName);
 	}
 }
