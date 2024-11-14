@@ -23,10 +23,10 @@ namespace BankDataBase.Repositories
 		public async Task<string> CreateNewAccount(string accountName, uint bankId)
 		{
 			if (String.IsNullOrEmpty(accountName))
-				return "Ошибка, не указано имя!";
+				return "Ошибка: не указано имя!";
 
 			if(!await _context.Banks.AnyAsync(b => b.Id == bankId))
-				return "Ошибка, банк не найден!";
+				return "Ошибка: банк не найден!";
 
 			using (var transact = await _context.Database.BeginTransactionAsync())
 			{
@@ -53,7 +53,7 @@ namespace BankDataBase.Repositories
 				catch (Exception ex)
 				{
 					await transact.RollbackAsync();
-					return $"Произошла ошибка!\n {ex.ToString()}";
+					return $"Произошла критическая ошибка!\n {ex.ToString()}";
 				}
 			}
 		}

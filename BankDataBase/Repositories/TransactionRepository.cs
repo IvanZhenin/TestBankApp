@@ -29,7 +29,7 @@ namespace BankDataBase.Repositories
 					var recipient = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == recipientId);
 
 					if (sender == null || recipient == null)
-						return "Ошибка при создании транзакции, неправильно указаны данные счетов!";
+						return "Неправильно указаны данные счетов!";
 
 					if (sender.Balance < amount)
 						return "Недостаточно средств на счету отправителя!";
