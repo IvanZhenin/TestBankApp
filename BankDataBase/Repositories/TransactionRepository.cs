@@ -18,6 +18,9 @@ namespace BankDataBase.Repositories
 			if (senderId == recipientId)
 				return "Неверно указаны данные счетов!";
 
+			if (amount <= 0)
+				return "Неверно указана сумма транзакции!";
+
 			using (var transact = await _context.Database.BeginTransactionAsync())
 			{
 				try
