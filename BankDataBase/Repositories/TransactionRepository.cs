@@ -16,10 +16,10 @@ namespace BankDataBase.Repositories
 		public async Task<string> CreateNewTransaction(uint senderId, uint recipientId, decimal amount)
 		{
 			if (senderId == recipientId)
-				return "Неверно указаны данные счетов!";
+				return "Ошибка: неверно указаны данные счетов!";
 
 			if (amount <= 0)
-				return "Неверно указана сумма транзакции!";
+				return "Ошибка: неверно указана сумма транзакции!";
 
 			using (var transact = await _context.Database.BeginTransactionAsync())
 			{
@@ -29,10 +29,10 @@ namespace BankDataBase.Repositories
 					var recipient = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == recipientId);
 
 					if (sender == null || recipient == null)
-						return "Неправильно указаны данные счетов!";
+						return "Ошибка: неправильно указаны данные счетов!";
 
 					if (sender.Balance < amount)
-						return "Недостаточно средств на счету отправителя!";
+						return "Ошибка: недостаточно средств на счету отправителя!";
 
 					var transaction = new Transaction()
 					{
@@ -55,7 +55,7 @@ namespace BankDataBase.Repositories
 				catch (Exception ex)
 				{
 					await transact.RollbackAsync();
-					return $"Произошла ошибка!\n {ex.ToString()}";
+					return $"Произошла критическая ошибка!\n {ex.ToString()}";
 				}
 			}
 		}
