@@ -23,27 +23,39 @@ namespace BankDataBase.Repositories
 		public async Task<string> CreateNewAccount(string accountName, uint bankId)
 		{
 			if (String.IsNullOrEmpty(accountName))
-				return "Не удалось создать аккаунт, необходимо указать имя!";
+				return "Ошибка, не указано имя!";
 
-			if (!await _context.Banks.AnyAsync(b => b.Id == bankId))
-				return "Не удалось создать аккаунт, неверно указан номер банка!";
+			if(!await _context.Banks.AnyAsync(b => b.Id == bankId))
+				return "Ошибка, банк не найден!";
 
-			var accountList = await _context.Accounts.AsNoTracking()
-				.OrderBy(a => a.Id).Select(a => a.Id).ToListAsync();
-
-			var account = new Account()
+			using (var transact = await _context.Database.BeginTransactionAsync())
 			{
-				Id = UniqueIdProvider.GetNewUintId(accountList),
-				AccountName = accountName,
-				BankId = bankId,
-				CreationDate = DateTime.Now,
-				Balance = 0,
-			};
+				try
+				{
+					var accountList = await _context.Accounts.AsNoTracking()
+						.OrderBy(a => a.Id).Select(a => a.Id).ToListAsync();
 
-			_context.Accounts.Add(account);
-			await _context.SaveChangesAsync();
+					var account = new Account()
+					{
+						Id = UniqueIdProvider.GetNewUintId(accountList),
+						AccountName = accountName,
+						BankId = bankId,
+						CreationDate = DateTime.Now,
+						Balance = 0,
+					};
 
-			return "Аккаунт успешно создан!";
+					_context.Accounts.Add(account);
+					await _context.SaveChangesAsync();
+
+					await transact.CommitAsync();
+					return "Аккаунт успешно создан!";
+				}
+				catch (Exception ex)
+				{
+					await transact.RollbackAsync();
+					return $"Произошла ошибка!\n {ex.ToString()}";
+				}
+			}
 		}
 
 		public async Task<Account> GetAccount(uint accountId)
