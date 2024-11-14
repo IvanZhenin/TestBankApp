@@ -27,7 +27,8 @@ namespace BankDataBase.Repositories
 
 		public async Task<ICollection<Account>> GetAccounts(string bankName)
 		{
-			var accountList = await _context.Accounts.AsNoTracking().Where(a => a.Bank.BankName == bankName).ToListAsync();
+			var accountList = await _context.Accounts.AsNoTracking().Include(a => a.Bank)
+				.Where(a => a.Bank.BankName == bankName).ToListAsync();
 			return accountList;
 		}
 
