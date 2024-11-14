@@ -28,7 +28,8 @@ namespace BankDataBase.Data
 
 				account.HasOne(a => a.Bank)
 					.WithMany(b => b.Accounts)
-					.HasForeignKey(a => a.BankId);
+					.HasForeignKey(a => a.BankId)
+					.OnDelete(DeleteBehavior.Restrict);
 			});
 
 			modelBuilder.Entity<Transaction>(transaction =>
