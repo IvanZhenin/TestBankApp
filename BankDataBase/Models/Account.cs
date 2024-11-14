@@ -8,6 +8,7 @@
 		public string AccountName { get; set; } = "";
 		public DateTime CreationDate { get; set; }
 		public Bank Bank { get; set; }
-		public ICollection<Transaction> Transactions { get; set; } = [];
+		public ICollection<Transaction> SentTransactions { get; set; } = [];
+		public ICollection<Transaction> ReceivedTransactions { get; set; } = [];
 	}
 }

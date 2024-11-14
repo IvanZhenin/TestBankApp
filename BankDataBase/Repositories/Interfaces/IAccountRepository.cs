@@ -8,6 +8,7 @@ namespace BankDataBase.Repositories.Interfaces
 		decimal GetBalance(uint accountId);
 		string CreateNewAccount(string accountName, uint bankId);
 		bool AccountExists(uint accountId);
-		ICollection<Transaction> GetTransactions(uint accountId);
+		ICollection<Transaction> GetSentTransactions(uint accountId);
+		ICollection<Transaction> GetReceivedTransactions(uint accountId);
 	}
 }

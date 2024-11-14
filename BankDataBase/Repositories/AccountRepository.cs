@@ -53,9 +53,14 @@ namespace BankDataBase.Repositories
 			return _context.Accounts.FirstOrDefault(a => a.Id == accountId).Balance;
 		}
 
-		public ICollection<Transaction> GetTransactions(uint accountId)
+		public ICollection<Transaction> GetSentTransactions(uint accountId)
 		{
-			return _context.Transactions.Where(t => t.RecipientId == accountId || t.SenderId == accountId).ToList();
+			return _context.Transactions.Where(t => t.SenderId == accountId).ToList();
+		}
+
+		public ICollection<Transaction> GetReceivedTransactions(uint accountId)
+		{
+			return _context.Transactions.Where(t => t.RecipientId == accountId).ToList();
 		}
 	}
 }

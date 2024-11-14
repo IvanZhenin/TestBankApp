@@ -36,12 +36,14 @@ namespace BankDataBase.Data
 				transaction.HasKey(t => t.Id);
 
 				transaction.HasOne(t => t.SenderAccount)
-					.WithMany(a => a.Transactions)
-					.HasForeignKey(t => t.SenderId);
+					.WithMany(a => a.SentTransactions)
+					.HasForeignKey(t => t.SenderId)
+					.OnDelete(DeleteBehavior.Restrict);
 
 				transaction.HasOne(t => t.RecipientAccount)
-					.WithMany(a => a.Transactions)
-					.HasForeignKey(t => t.RecipientId);
+					.WithMany(a => a.ReceivedTransactions)
+					.HasForeignKey(t => t.RecipientId)
+					.OnDelete(DeleteBehavior.Restrict);
 			});
 		}
 	}
