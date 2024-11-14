@@ -28,16 +28,16 @@ namespace BankDataBase.Repositories
 			if(!await _context.Banks.AnyAsync(b => b.Id == bankId))
 				return "Ошибка: банк не найден!";
 
+			var accountIdList = await _context.Accounts.AsNoTracking()
+				.OrderBy(a => a.Id).Select(a => a.Id).ToListAsync();
+
 			using (var transact = await _context.Database.BeginTransactionAsync())
 			{
 				try
 				{
-					var accountList = await _context.Accounts.AsNoTracking()
-						.OrderBy(a => a.Id).Select(a => a.Id).ToListAsync();
-
 					var account = new Account()
 					{
-						Id = UniqueIdProvider.GetNewUintId(accountList),
+						Id = UniqueIdProvider.GetNewUintId(accountIdList),
 						AccountName = accountName,
 						BankId = bankId,
 						CreationDate = DateTime.Now,

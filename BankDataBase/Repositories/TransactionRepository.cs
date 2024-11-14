@@ -21,19 +21,19 @@ namespace BankDataBase.Repositories
 			if (amount <= 0)
 				return "Ошибка: неверно указана сумма транзакции!";
 
+			var sender = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == senderId);
+			var recipient = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == recipientId);
+
+			if (sender == null || recipient == null)
+				return "Ошибка: неправильно указаны данные счетов!";
+
+			if (sender.Balance < amount)
+				return "Ошибка: недостаточно средств на счету отправителя!";
+
 			using (var transact = await _context.Database.BeginTransactionAsync())
 			{
 				try
 				{
-					var sender = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == senderId);
-					var recipient = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == recipientId);
-
-					if (sender == null || recipient == null)
-						return "Ошибка: неправильно указаны данные счетов!";
-
-					if (sender.Balance < amount)
-						return "Ошибка: недостаточно средств на счету отправителя!";
-
 					var transaction = new Transaction()
 					{
 						Id = Guid.NewGuid(),
