@@ -15,10 +15,15 @@ namespace BankDataBase.Data
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Bank>().HasKey(b => b.Id);
+			modelBuilder.Entity<Bank>(bank =>
+			{
+				bank.Property(b => b.Id).ValueGeneratedNever();
+				bank.HasKey(b => b.Id);
+			});
 
 			modelBuilder.Entity<Account>(account =>
 			{
+				account.Property(b => b.Id).ValueGeneratedNever();
 				account.HasKey(a => a.Id);
 
 				account.HasOne(a => a.Bank)

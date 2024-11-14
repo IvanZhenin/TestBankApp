@@ -2,9 +2,9 @@
 {
 	public class Transaction
 	{
-		public int Id { get; set; }
-		public int SenderId { get; set; }
-		public int RecipientId { get; set; }
+		public Guid Id { get; set; }
+		public uint SenderId { get; set; }
+		public uint RecipientId { get; set; }
 		public decimal TransactionAmount { get; set; }
 		public DateTime DateCreate { get; set; }
 		public Account SenderAccount { get; set; }
