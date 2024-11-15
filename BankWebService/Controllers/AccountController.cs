@@ -27,7 +27,7 @@ namespace BankWebService.Controllers
 
 			var account = _mapper.Map<AccountDto>(await _accountRepository.GetAccount(accountId));
 
-			if (!ModelState.IsValid)
+			if (account == null)
 				return BadRequest(ModelState);
 
 			return Ok(account);
