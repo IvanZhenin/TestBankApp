@@ -8,6 +8,5 @@ namespace BankDataBase.Repositories.Interfaces
 		Task<bool> BankExists(uint bankId);
 		Task<ICollection<Bank>> GetBanks();
 		Task<ICollection<Account>> GetAccounts(uint bankId);
-		Task<ICollection<Account>> GetAccounts(string bankName);
 	}
 }
