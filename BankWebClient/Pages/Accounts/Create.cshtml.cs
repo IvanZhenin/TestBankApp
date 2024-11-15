@@ -19,11 +19,6 @@ namespace BankWebClient.Pages.Accounts
 	    [BindProperty]
 	    public NewAccountDto Account { get; set; }
 
-	    public void OnGet()
-	    {
-		    Account = new NewAccountDto { BankId = BankId };
-	    }
-
 	    public async Task<IActionResult> OnPostAsync()
 	    {
 		    if (!ModelState.IsValid)

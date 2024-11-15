@@ -19,11 +19,6 @@ namespace BankWebClient.Pages.Transactions
 		[BindProperty]
 	    public NewTransactionDto Transaction { get; set; }
 
-		public void OnGet()
-		{
-			
-		}
-
 		public async Task<IActionResult> OnPostAsync()
 		{
 			if (!ModelState.IsValid)

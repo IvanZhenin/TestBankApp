@@ -14,10 +14,13 @@ namespace BankWebClient.Pages.Banks
 	    }
 
 	    public List<BankDto>? Banks { get; private set; } = [];
-	    public async Task OnGetAsync()
+
+	    public async Task<IActionResult> OnGetAsync()
 	    {
 			var client = _httpClientFactory.CreateClient("BankWebService");
 			Banks = await client.GetFromJsonAsync<List<BankDto>>("api/Bank/Banks");
+
+			return Page();
 	    }
 	}
 }
