@@ -8,16 +8,16 @@ namespace BankDtoModels
 	{
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Номер аккаунта")]
-		public uint Id { get; set; }
+		public required uint Id { get; set; }
 
 
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Баланс аккаунта")]
-		public decimal Balance { get; set; }
+		public required decimal Balance { get; set; }
 
 
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Дата создания аккаунта")]
-		public DateTime CreationDate { get; set; }
+		public required DateTime CreationDate { get; set; }
 	}
 }

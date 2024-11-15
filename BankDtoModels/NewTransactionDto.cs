@@ -8,14 +8,14 @@ namespace BankDtoModels
 	{
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Номер отправителя")]
-		public uint SenderId { get; set; }
+		public required uint SenderId { get; set; }
 
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Номер получателя")]
-		public uint RecipientId { get; set; }
+		public required uint RecipientId { get; set; }
 
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Сумма транзакции")]
-		public decimal TransactionAmount { get; set; }
+		public required decimal TransactionAmount { get; set; }
 	}
 }

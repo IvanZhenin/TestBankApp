@@ -8,10 +8,10 @@ namespace BankDtoModels
 	{
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Имя аккаунта")]
-		public string AccountName { get; set; } = "";
+		public required string AccountName { get; set; }
 
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Номер банка")]
-		public uint BankId { get; set; }
+		public required uint BankId { get; set; }
 	}
 }

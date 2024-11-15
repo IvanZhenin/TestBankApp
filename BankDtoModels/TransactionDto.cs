@@ -8,10 +8,10 @@ namespace BankDtoModels
 	{
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Номер транзакции")]
-		public Guid Id { get; set; }
+		public required Guid Id { get; set; }
 
 		[Required(ErrorMessage = "Поле обязательно для заполнения")]
 		[DisplayName("Дата создания транзакции")]
-		public DateTime DateCreate { get; set; }
+		public required DateTime DateCreate { get; set; }
 	}
 }

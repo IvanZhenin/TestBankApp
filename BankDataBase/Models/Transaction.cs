@@ -2,12 +2,12 @@
 {
 	public class Transaction
 	{
-		public Guid Id { get; set; }
-		public uint SenderId { get; set; }
-		public uint RecipientId { get; set; }
-		public decimal TransactionAmount { get; set; }
-		public DateTime DateCreate { get; set; }
-		public Account SenderAccount { get; set; }
-		public Account RecipientAccount { get; set; }
+		public required Guid Id { get; set; }
+		public required uint SenderId { get; set; }
+		public required uint RecipientId { get; set; }
+		public required decimal TransactionAmount { get; set; }
+		public required DateTime DateCreate { get; set; }
+		public Account? SenderAccount { get; set; }
+		public Account? RecipientAccount { get; set; }
 	}
 }
