@@ -33,20 +33,6 @@ namespace BankWebService.Controllers
 			return Ok(account);
 		}
 
-		[HttpGet("Accounts/{accountId}/Balance")]
-		public async Task<IActionResult> GetAccountBalance(uint accountId)
-		{
-			if (!await _accountRepository.AccountExists(accountId))
-				return NotFound();
-
-			var balance = await _accountRepository.GetBalance(accountId);
-
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
-
-			return Ok(balance);
-		}
-
 		[HttpGet("Accounts/{accountId}/SentTransactions")]
 		public async Task<IActionResult> GetAccountSentTransactions(uint accountId)
 		{
