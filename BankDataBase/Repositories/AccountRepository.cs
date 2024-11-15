@@ -64,12 +64,6 @@ namespace BankDataBase.Repositories
 			return account;
 		}
 
-		public async Task<decimal> GetBalance(uint accountId)
-		{
-			var account = await _context.Accounts.AsNoTracking().FirstOrDefaultAsync(a => a.Id == accountId);
-			return account?.Balance ?? 0;
-		}
-
 		public async Task<ICollection<Transaction>> GetSentTransactions(uint accountId)
 		{
 			var transactionList = await _context.Transactions.AsNoTracking().OrderByDescending(t => t.DateCreate)
