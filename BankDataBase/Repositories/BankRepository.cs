@@ -25,22 +25,9 @@ namespace BankDataBase.Repositories
 			return accountList;
 		}
 
-		public async Task<ICollection<Account>> GetAccounts(string bankName)
-		{
-			var accountList = await _context.Accounts.AsNoTracking().Include(a => a.Bank)
-				.Where(a => a.Bank.BankName == bankName).ToListAsync();
-			return accountList;
-		}
-
 		public async Task<Bank> GetBank(uint bankId)
 		{
 			var bank = await _context.Banks.AsNoTracking().FirstOrDefaultAsync(b => b.Id == bankId);
-			return bank;
-		}
-
-		public async Task<Bank> GetBank(string bankName)
-		{
-			var bank = await _context.Banks.AsNoTracking().FirstOrDefaultAsync(b => b.BankName == bankName);
 			return bank;
 		}
 
