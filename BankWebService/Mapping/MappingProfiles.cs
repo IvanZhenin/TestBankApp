@@ -11,6 +11,7 @@ namespace BankWebService.Mapping
 			CreateMap<Bank, BankDto>();
 			CreateMap<Account, NewAccountDto>();
 			CreateMap<Account, AccountDto>();
+			CreateMap<Transaction, NewTransactionDto>();
 			CreateMap<Transaction, TransactionDto>();
 		}
 	}
