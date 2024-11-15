@@ -15,9 +15,12 @@ namespace BankWebService
 			builder.Services.AddDbContext<BankDataContext>(options =>
 				options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnect"),
 					b => b.MigrationsAssembly("BankWebService")));
+
 			builder.Services.AddScoped<IBankRepository, BankRepository>();
 			builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 			builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+
+			builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 			builder.Services.AddControllers();
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
