@@ -19,7 +19,7 @@ namespace BankWebService.Controllers
 			_mapper = mapper;
 		}
 
-		[HttpGet("accounts/{accountId}")]
+		[HttpGet("Accounts/{accountId}")]
 		public async Task<IActionResult> GetAccount(uint accountId)
 		{
 			if (!await _accountRepository.AccountExists(accountId))
