@@ -41,7 +41,7 @@ namespace BankDataBase.Repositories
 						AccountName = accountName,
 						BankId = bankId,
 						CreationDate = DateTime.Now,
-						Balance = 0,
+						Balance = 1500,
 					};
 
 					_context.Accounts.Add(account);
