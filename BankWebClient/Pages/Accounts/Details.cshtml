@@ -1,0 +1,91 @@
+﻿@page "{accountId}"
+@model BankWebClient.Pages.Accounts.DetailsModel
+@{
+    ViewData["Title"] = "Информация о аккаунте";
+}
+
+<h2>Информация о аккаунте</h2>
+
+@if (Model.Account == null)
+{
+	<p>Аккаунт не найден.</p>
+	<a asp-page="/Banks/List" class="btn btn-secondary">Вернуться на главную</a>
+}
+else
+{
+	<dl class="row">
+		<dt class="col-sm-3">Номер аккаунта</dt>
+		<dd class="col-sm-9">@Model.Account.Id</dd>
+
+		<dt class="col-sm-3">Баланс</dt>
+		<dd class="col-sm-9">@Model.Account.Balance</dd>
+
+		<dt class="col-sm-3">Владелец</dt>
+		<dd class="col-sm-9">@Model.Account.AccountName</dd>
+	</dl>
+
+
+	<h3>Отправленные транзакции</h3>
+
+	@if (Model.SentTransactions != null && Model.SentTransactions.Any())
+	{
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Дата</th>
+				<th>Счет получателя</th>
+				<th>Сумма</th>
+			</tr>
+			</thead>
+			<tbody>
+			@foreach (var transaction in Model.SentTransactions)
+			{
+				<tr>
+					<td>@transaction.DateCreate</td>
+					<td>@transaction.RecipientId</td>
+					<td>@transaction.TransactionAmount</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<p>Нет отправленных транзакций.</p>
+	}
+
+	<h3>Полученные транзакции</h3>
+
+	@if (Model.ReceivedTransactions != null && Model.ReceivedTransactions.Any())
+	{
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Дата</th>
+				<th>Счет отправителя</th>
+				<th>Сумма</th>
+			</tr>
+			</thead>
+			<tbody>
+			@foreach (var transaction in Model.ReceivedTransactions)
+			{
+				<tr>
+					<td>@transaction.DateCreate</td>
+					<td>@transaction.SenderId</td>
+					<td>@transaction.TransactionAmount</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+
+
+	}
+	else
+	{
+		<p>Нет полученных транзакций.</p>
+	}
+
+	<a asp-page="/Banks/Details" asp-route-bankId="@Model.Account.BankId" class="btn btn-secondary">Назад к банку</a>
+
+	<a asp-page="/Transactions/Create" asp-route-accountId="@Model.Account.Id" class="btn btn-primary">Создать транзакцию</a>
+}

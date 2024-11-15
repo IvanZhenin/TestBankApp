@@ -1,0 +1,27 @@
+﻿@page "{accountId}"
+@model BankWebClient.Pages.Transactions.CreateModel
+
+@{
+	ViewData["Title"] = "Создание транзакции";
+}
+
+<h2>Создать транзакцию</h2>
+
+<form method="post">
+	<label asp-for="Transaction.SenderId">Счет отправителя</label>
+	<input asp-for="Transaction.SenderId" value="@Model.AccountId" readonly />
+
+	<div class="form-group">
+		<label for="Transaction.RecipientId">Счет получателя</label>
+		<input type="text" id="Transaction.RecipientId" name="Transaction.RecipientId" class="form-control" required/>
+	</div>
+
+	<div class="form-group">
+		<label for="Transaction.TransactionAmount">Сумма</label>
+		<input type="number" id="Transaction.TransactionAmount" name="Transaction.TransactionAmount" class="form-control" required/>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Создать транзакцию</button>
+</form>
+
+<a asp-page="/Accounts/Details" asp-route-accountId="@Model.AccountId" class="btn btn-secondary mt-2">Назад к аккаунту</a>

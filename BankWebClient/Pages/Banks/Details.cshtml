@@ -1,0 +1,61 @@
+﻿@page "{bankId}"
+@model BankWebClient.Pages.Banks.DetailsModel
+@{
+	ViewData["Title"] = "Информация о банке";
+}
+
+<h2>Информация о банке</h2>
+
+@if (Model.Bank == null)
+{
+	<p>Банк не найден.</p>
+	<a asp-page="/Banks/List" class="btn btn-secondary">Вернуться на главную</a>
+}
+else
+{
+	<dl class="row">
+		<dt class="col-sm-3">Номер банка</dt>
+		<dd class="col-sm-9">@Model.Bank.Id</dd>
+
+		<dt class="col-sm-3">Название</dt>
+		<dd class="col-sm-9">@Model.Bank.BankName</dd>
+	</dl>
+
+	<h3>Список аккаунтов</h3>
+
+	@if (Model.Accounts != null && Model.Accounts.Any())
+	{
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Номер аккаунта</th>
+				<th>Ф.И.О</th>
+				<th>Дата создания</th>
+				<th>Баланс</th>
+			</tr>
+			</thead>
+			<tbody>
+			@foreach (var account in Model.Accounts)
+			{
+				<tr>
+					<td>@account.Id</td>
+					<td>@account.AccountName</td>
+					<td>@account.CreationDate</td>
+					<td>@account.Balance</td>
+					<td>
+						<a asp-page="/Accounts/Details" asp-route-accountId="@account.Id" class="btn btn-info">Подробнее</a>
+					</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<p>Аккаунты для данного банка не найдены.</p>
+	}
+
+	<a asp-page="/Accounts/Create" asp-route-BankId="@Model.Bank.Id" class="btn btn-primary">Создать аккаунт</a>
+
+	<a asp-page="/Banks/List" class="btn btn-secondary">Назад к списку банков</a>
+}

@@ -1,0 +1,21 @@
+﻿@page
+@model BankWebClient.Pages.Accounts.CreateModel
+@{
+	ViewData["Title"] = "Создание аккаунта";
+}
+
+<h2>Создать новый аккаунт</h2>
+
+<form method="post">
+	<label asp-for="Account.BankId">Номер банка</label>
+	<input asp-for="Account.BankId" value="@Model.BankId" readonly/>
+
+	<div class="form-group">
+		<label asp-for="Account.AccountName">ФИО владельца:</label>
+		<input asp-for="Account.AccountName" class="form-control" required/>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Создать аккаунт</button>
+</form>
+
+<a asp-page="/Banks/Details" asp-route-bankId="@Model.BankId" class="btn btn-secondary mt-2">Назад к банку</a>

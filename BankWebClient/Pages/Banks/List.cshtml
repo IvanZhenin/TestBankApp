@@ -1,0 +1,35 @@
+﻿@page
+@model BankWebClient.Pages.Banks.ListModel
+@{
+	ViewData["Title"] = "Список банков";
+}
+
+<h2>Список банков</h2>
+
+@if (Model.Banks == null || !Model.Banks.Any())
+{
+	<p>Банки отсутствуют.</p>
+}
+else
+{
+	<table class="table">
+		<thead>
+		<tr>
+			<th>Номер банка</th>
+			<th>Название</th>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (var bank in Model.Banks)
+		{
+			<tr>
+				<td>@bank.Id</td>
+				<td>@bank.BankName</td>
+				<td>
+					<a asp-page="Details" asp-route-bankId="@bank.Id" class="btn btn-primary">Подробнее</a>
+				</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+}
