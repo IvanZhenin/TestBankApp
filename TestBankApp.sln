@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35431.28
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankWebService", "BankWebService\BankWebService.csproj", "{C6531FD3-43E5-49AB-B54B-642FA9E5FB0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankWebService", "BankWebService\BankWebService.csproj", "{C6531FD3-43E5-49AB-B54B-642FA9E5FB0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankDataBase", "BankDataBase\BankDataBase.csproj", "{2693A050-53E0-4332-8FA8-82F355BC1105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankDataBase", "BankDataBase\BankDataBase.csproj", "{2693A050-53E0-4332-8FA8-82F355BC1105}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankDtoModels", "BankDtoModels\BankDtoModels.csproj", "{AB870433-808D-45E4-9396-C1135C57C057}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2693A050-53E0-4332-8FA8-82F355BC1105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2693A050-53E0-4332-8FA8-82F355BC1105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2693A050-53E0-4332-8FA8-82F355BC1105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB870433-808D-45E4-9396-C1135C57C057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB870433-808D-45E4-9396-C1135C57C057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB870433-808D-45E4-9396-C1135C57C057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB870433-808D-45E4-9396-C1135C57C057}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
