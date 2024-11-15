@@ -72,13 +72,15 @@ namespace BankDataBase.Repositories
 
 		public async Task<ICollection<Transaction>> GetSentTransactions(uint accountId)
 		{
-			var transactionList = await _context.Transactions.AsNoTracking().Where(t => t.SenderId == accountId).ToListAsync();
+			var transactionList = await _context.Transactions.AsNoTracking().OrderByDescending(t => t.DateCreate)
+				.Where(t => t.SenderId == accountId).ToListAsync();
 			return transactionList;
 		}
 
 		public async Task<ICollection<Transaction>> GetReceivedTransactions(uint accountId)
 		{
-			var transactionList = await _context.Transactions.AsNoTracking().Where(t => t.RecipientId == accountId).ToListAsync();
+			var transactionList = await _context.Transactions.AsNoTracking().OrderByDescending(t => t.DateCreate)
+				.Where(t => t.RecipientId == accountId).ToListAsync();
 			return transactionList;
 		}
 	}
