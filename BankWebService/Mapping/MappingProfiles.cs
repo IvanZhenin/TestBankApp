@@ -9,6 +9,7 @@ namespace BankWebService.Mapping
 		public MappingProfiles()
 		{
 			CreateMap<Bank, BankDto>();
+			CreateMap<Account, NewAccountDto>();
 			CreateMap<Account, AccountDto>();
 			CreateMap<Transaction, TransactionDto>();
 		}
