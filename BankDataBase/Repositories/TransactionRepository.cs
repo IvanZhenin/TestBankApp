@@ -59,11 +59,5 @@ namespace BankDataBase.Repositories
 				}
 			}
 		}
-
-		public async Task<bool> TransactionExists(Guid transactionId)
-		{
-			var checkTransaction = await _context.Transactions.AnyAsync(t => t.Id == transactionId);
-			return checkTransaction;
-		}
 	}
 }
