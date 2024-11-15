@@ -7,9 +7,9 @@
 			if (numbers.Count == 0)
 				return 1;
 
-			for (int i = 1; i < numbers.Count; i++)
+			for (int i = 0; i < numbers.Count; i++)
 			{
-				if (numbers[i] != i)
+				if (numbers[i] != i + 1)
 					return numbers[i] + 1;
 			}
 
