@@ -2,6 +2,7 @@ using BankDataBase.Data;
 using BankDataBase.Repositories;
 using BankDataBase.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 
 namespace BankWebService
 {
@@ -34,6 +35,12 @@ namespace BankWebService
 			{
 				app.UseSwagger();
 				app.UseSwaggerUI();
+			}
+
+			using (var scope = app.Services.CreateAsyncScope())
+			{
+				var context = scope.ServiceProvider.GetRequiredService<BankDataContext>();
+				context.Database.Migrate();
 			}
 
 			app.UseHttpsRedirection();
