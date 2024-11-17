@@ -36,7 +36,7 @@ namespace BankWebService
 				app.UseSwaggerUI();
 			}
 
-			using (var scope = app.Services.CreateAsyncScope())
+			using (var scope = app.Services.CreateScope())
 			{
 				var context = scope.ServiceProvider.GetRequiredService<BankDataContext>();
 				context.Database.Migrate();
